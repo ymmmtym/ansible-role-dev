@@ -104,9 +104,9 @@ brew_packages:
   - docker-machine
   - minikube
   - kompose
+  - helm
+  - rke
   - terraform
   - packer
   - npm
   - peco
-  - ghq
-  - rke

@@ -1,0 +1,43 @@
+name: CI
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  ansible-lint:
+    name: ansible lint
+    runs-on: ubuntu-latest
+    if: contains(github.event.head_commit.message, '[ci skip]') == false
+    steps:
+    - uses: actions/checkout@v2
+    - name: Lint Ansible Playbook
+      uses: ansible/ansible-lint-action@master
+      with:
+        targets: "."
+
+  molecule:
+    name: molecule on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        # os: [macOS-latest, ubuntu-latest, ubuntu-18.04, ubuntu-16.04]
+        os: [macOS-latest]
+    env:
+      PYTHON_VERSION: 3.X
+    steps:
+      - uses: actions/checkout@v2
+      - name: Exec spctl
+        run: sudo /usr/sbin/spctl --master-disable
+        if: runner.os == 'macOS'
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - name: Install requirements
+        run: |
+          pip install -U pip
+          pip install ansible molecule[docker] docker
+      - name: Molecule test
+        run: molecule test -d delegated

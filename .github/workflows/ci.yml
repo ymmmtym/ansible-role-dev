@@ -50,7 +50,7 @@ jobs:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
         if: matrix.os == 'macOS-latest'
-      - name: Molecule test on ${{ matrix.distro }}
+      - name: Molecule test on Docker(${{ matrix.distro }})
         run: molecule test
         env:
           PY_COLORS: '1'

@@ -1,6 +1,7 @@
 - name: copy dotfiles
-  copy:
-    src: '{{ item }}'
-    dest: '{{ ansible_user_dir }}'
+  blockinfile:
+    block: '{{ lookup("file", item) }}'
+    path: '{{ ansible_user_dir }}/{{ item }}'
     mode: '0644'
+    create: true
   with_fileglob: "dotfiles/.*"

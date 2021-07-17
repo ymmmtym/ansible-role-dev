@@ -3,6 +3,8 @@
 - name: Update Homebrew
   homebrew:
     update_homebrew: yes
+  tags:
+    - molecule-idempotence-notest
 
 - name: Homebrew tap
   homebrew_tap:

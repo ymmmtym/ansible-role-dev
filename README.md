@@ -1,12 +1,14 @@
 ansible-role-dev
 =========
 
+[![CI](https://github.com/ymmmtym/ansible-role-dev/actions/workflows/ci.yml/badge.svg)](https://github.com/ymmmtym/ansible-role-dev/actions/workflows/ci.yml)
+
 This role is for develop devices.
 
 Requirements
 ------------
 
-- ansible
+- None
 
 Role Variables
 --------------
@@ -30,7 +32,7 @@ Including an example of how to use your role (for instance, with variables passe
 License
 -------
 
-BSD
+MIT
 
 Author Information
 ------------------

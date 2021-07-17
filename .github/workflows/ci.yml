@@ -1,0 +1,59 @@
+name: CI
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  ansible-lint:
+    name: ansible lint
+    runs-on: ubuntu-latest
+    if: contains(github.event.head_commit.message, '[ci skip]') == false
+    steps:
+    - uses: actions/checkout@v2
+    - name: Lint Ansible Playbook
+      uses: ansible/ansible-lint-action@master
+      with:
+        targets: "."
+
+  molecule:
+    name: molecule on ${{ matrix.os }} ${{ matrix.distro }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      max-parallel: 6
+      matrix:
+        include:
+          - { experimental: true, os: "macOS-latest" }
+          - { experimental: true, os: "ubuntu-latest", distro: "centos:8" }
+          - { experimental: true, os: "ubuntu-latest", distro: "centos:7" }
+          - { experimental: true, os: "ubuntu-latest", distro: "ubuntu:20.04" }
+          - { experimental: true, os: "ubuntu-latest", distro: "ubuntu:18.04" }
+          - { experimental: true, os: "ubuntu-latest", distro: "ubuntu:16.04" }
+    env:
+      PYTHON_VERSION: 3.X
+    steps:
+      - uses: actions/checkout@v2
+      - name: Exec spctl
+        run: sudo /usr/sbin/spctl --master-disable
+        if: matrix.os == 'macOS-latest'
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - name: Install requirements
+        run: |
+          pip install -U pip
+          pip install ansible molecule[docker] docker
+      - name: Molecule test on ${{ matrix.os }}
+        run: molecule test -d delegated
+        env:
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'
+        if: matrix.os == 'macOS-latest'
+      - name: Molecule test on Docker(${{ matrix.distro }})
+        run: molecule test
+        env:
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'
+          MOLECULE_DISTRO: ${{ matrix.distro }}
+        if: runner.os == 'Linux'

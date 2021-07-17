@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: localhost
+  tasks:
+    - name: "Include ansible-role-dev"
+      include_role:
+        name: "ansible-role-dev"

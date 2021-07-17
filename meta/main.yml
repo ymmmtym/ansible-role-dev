@@ -1,6 +1,6 @@
 galaxy_info:
   author: ymmmtym
-  description: ymmmtym
+  description: install develop environment
   company: ymmmtym
   license:
     - BSD-3-Clause
@@ -16,10 +16,12 @@ galaxy_info:
         - all
     - name: RedHat
       versions:
-        - all
+        - 8
+        - 7
     - name: Ubuntu
       versions:
-        - all
+        - xenial
+        - bionic
+        - focal
   galaxy_tags: []
 dependencies: []
-

@@ -1,7 +1,7 @@
 galaxy_info:
   author: ymmmtym
+  role_name: dev
   description: install develop environment
-  company: ymmmtym
   license:
     - MIT
   min_ansible_version: 2.4
@@ -9,7 +9,7 @@ galaxy_info:
     - name: MacOSX
       versions:
         - all
-    - name: RedHat
+    - name: EL
       versions:
         - 8
         - 7
@@ -18,5 +18,6 @@ galaxy_info:
         - xenial
         - bionic
         - focal
-  galaxy_tags: []
+  galaxy_tags:
+    - development
 dependencies: []

@@ -1,7 +1,7 @@
 ansible-role-dev
 =========
 
-[![Test](https://github.com/ymmmtym/ansible-role-dev/actions/workflows/test.yml/badge.svg)](https://github.com/ymmmtym/ansible-role-dev/actions/workflows/test.yml)
+[![Test](https://github.com/ymmmtym/ansible-role-dev/actions/workflows/test.yml/badge.svg)](https://github.com/ymmmtym/ansible-role-dev/actions/workflows/test.yml) [![Release](https://github.com/ymmmtym/ansible-role-dev/actions/workflows/release.yml/badge.svg)](https://github.com/ymmmtym/ansible-role-dev/actions/workflows/release.yml)
 
 This role is for develop devices.
 

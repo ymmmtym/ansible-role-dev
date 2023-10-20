@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     if: contains(github.event.head_commit.message, '[ci skip]') == false
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Lint Ansible Playbook
       uses: ansible/ansible-lint-action@master
       with:
@@ -32,7 +32,7 @@ jobs:
     env:
       PYTHON_VERSION: 3.X
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Exec spctl
         run: sudo /usr/sbin/spctl --master-disable
         if: matrix.os == 'macOS-latest'
